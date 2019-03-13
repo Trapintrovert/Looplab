@@ -1,4 +1,5 @@
 const gulp        = require('gulp');
+const deploy = require('gulp-gh-pages');
 const browserSync = require('browser-sync').create();
 const sass        = require('gulp-sass');
 
@@ -21,7 +22,7 @@ gulp.task('js', function() {
 gulp.task('serve', ['sass'], function() {
 
     browserSync.init({
-        server: "./src"  
+        server: "./src"
     });
 
     gulp.watch(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'], ['sass']);
@@ -39,5 +40,14 @@ gulp.task('fa', function() {
   return gulp.src('node_modules/font-awesome/css/font-awesome.min.css')
     .pipe(gulp.dest('src/css'))
 })
+
+//Deploy to git-pages
+gulp.task('deploy', function () {
+    return gulp.src("./prod/**/*")
+      .pipe(deploy({
+        remoteUrl: "https://github.com/Trapintrovert/Looplab.git",
+        branch: "master"
+      }))
+  });
 
 gulp.task('default', ['js','serve', 'fa', 'fonts']);
