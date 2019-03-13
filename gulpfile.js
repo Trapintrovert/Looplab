@@ -43,11 +43,8 @@ gulp.task('fa', function() {
 
 //Deploy to git-pages
 gulp.task('deploy', function () {
-    return gulp.src("./prod/**/*")
-      .pipe(deploy({
-        remoteUrl: "https://github.com/Trapintrovert/Looplab.git",
-        branch: "master"
-      }))
-  });
+  return gulp.src("./dist/**/*")
+    .pipe(deploy())
+});
 
 gulp.task('default', ['js','serve', 'fa', 'fonts']);
